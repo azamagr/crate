@@ -1,0 +1,34 @@
+{
+  "info": {
+    "name": "Checkpoint API",
+    "description": "CRUD endpoints for the Week 5 Task A internship submission.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [{ "key": "baseUrl", "value": "http://localhost:5000" }],
+  "item": [
+    { "name": "Health check", "request": { "method": "GET", "url": "{{baseUrl}}/api/health" } },
+    { "name": "Get all tasks", "request": { "method": "GET", "url": "{{baseUrl}}/api/tasks" } },
+    {
+      "name": "Create task",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"title\": \"Write tests\",\n  \"priority\": \"high\"\n}" },
+        "url": "{{baseUrl}}/api/tasks"
+      }
+    },
+    {
+      "name": "Update task",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"completed\": true\n}" },
+        "url": "{{baseUrl}}/api/tasks/REPLACE_WITH_ID"
+      }
+    },
+    {
+      "name": "Delete task",
+      "request": { "method": "DELETE", "url": "{{baseUrl}}/api/tasks/REPLACE_WITH_ID" }
+    }
+  ]
+}

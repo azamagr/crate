@@ -1,0 +1,12 @@
+{
+  "name": "checkpoint-e2e",
+  "version": "1.0.0",
+  "description": "Playwright end-to-end tests for the Checkpoint app",
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test --ui"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.62.1"
+  }
+}

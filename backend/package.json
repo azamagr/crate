@@ -1,0 +1,23 @@
+{
+  "name": "checkpoint-backend",
+  "version": "1.0.0",
+  "description": "Express + MongoDB API for the Checkpoint task app, with a Jest + Supertest test suite",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "jest --runInBand",
+    "test:watch": "jest --watch"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.5.2"
+  },
+  "devDependencies": {
+    "jest": "^30.4.2",
+    "nodemon": "^3.1.4",
+    "supertest": "^7.0.0"
+  }
+}
