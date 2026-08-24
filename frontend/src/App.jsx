@@ -1,49 +1,31 @@
-import { CheckCircle2 } from "lucide-react";
-import TaskForm from "./components/TaskForm";
-import TaskList from "./components/TaskList";
+import { Bug } from "lucide-react";
+import IssueForm from "./components/IssueForm";
+import IssueList from "./components/IssueList";
 import LoadingState from "./components/LoadingState";
 import ErrorState from "./components/ErrorState";
-import { useTasks } from "./hooks/useTasks";
+import { useIssues } from "./hooks/useIssues";
 
 export default function App() {
-  const {
-    tasks,
-    status,
-    errorMessage,
-    reload,
-    addTask,
-    creating,
-    createError,
-    setCreateError,
-    toggleTask,
-    removeTask,
-  } = useTasks();
+  const { issues, status, errorMessage, reload, addIssue, creating, createError, removeIssue } = useIssues();
 
   return (
     <div className="min-h-screen bg-bg text-ink font-body">
-      <div className="max-w-lg mx-auto px-5 py-10 sm:py-16">
-        <div className="flex items-center gap-2 justify-center mb-8">
-          <CheckCircle2 className="w-6 h-6 text-blue" strokeWidth={2.25} />
-          <span className="font-display font-bold text-xl">Checkpoint</span>
+      <div className="max-w-lg mx-auto px-5 py-10">
+        <div className="flex items-center gap-2 mb-6">
+          <Bug className="w-5 h-5 text-coral" strokeWidth={2.5} />
+          <h1 className="font-display font-bold text-lg">Crate</h1>
         </div>
 
-        <TaskForm
-          onAdd={addTask}
-          creating={creating}
-          createError={createError}
-          clearError={() => setCreateError("")}
-        />
+        <IssueForm onCreate={addIssue} creating={creating} createError={createError} />
 
-        <div className="mt-5">
+        <div className="mt-6">
           {status === "loading" && <LoadingState />}
           {status === "error" && <ErrorState message={errorMessage} onRetry={reload} />}
-          {status === "success" && (
-            <TaskList tasks={tasks} onToggle={toggleTask} onDelete={removeTask} />
-          )}
+          {status === "success" && <IssueList issues={issues} onDelete={removeIssue} />}
         </div>
 
-        <footer className="text-center text-xs text-muted/70 font-mono mt-10">
-          Checkpoint · Express + MongoDB backend · Week 5 internship task
+        <footer className="text-center text-xs text-muted/60 font-mono mt-10">
+          Crate · Express + MongoDB backend · Week 5 internship task
         </footer>
       </div>
     </div>

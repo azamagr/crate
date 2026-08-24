@@ -1,13 +1,13 @@
 {
-  "name": "checkpoint-backend",
+  "name": "crate-backend",
   "version": "1.0.0",
-  "description": "Express + MongoDB API for the Checkpoint task app, with a Jest + Supertest test suite",
+  "description": "Express + MongoDB API for Crate, an issue tracker, with a full Jest + Supertest test suite",
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
     "test": "jest --runInBand",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --runInBand --watch"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -17,7 +17,8 @@
   },
   "devDependencies": {
     "jest": "^30.4.2",
+    "mongodb-memory-server": "^11.2.0",
     "nodemon": "^3.1.4",
-    "supertest": "^7.0.0"
+    "supertest": "^7.2.2"
   }
 }

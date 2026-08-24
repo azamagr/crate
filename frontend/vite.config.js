@@ -4,10 +4,10 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  base: '/checkpoint/',
+  base: '/crate/',
   test: {
     environment: 'jsdom',
-    setupFiles: './src/setupTests.js',
+    setupFiles: './src/test/setup.js',
     globals: true,
   },
 })

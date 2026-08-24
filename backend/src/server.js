@@ -8,7 +8,7 @@ async function start() {
   try {
     await connectDB();
     app.listen(PORT, () => {
-      console.log(`Checkpoint API listening on port ${PORT}`);
+      console.log(`Crate API listening on port ${PORT}`);
     });
   } catch (err) {
     console.error("Failed to start server:", err.message);
