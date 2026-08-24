@@ -3,8 +3,6 @@ const { test, expect } = require("@playwright/test");
 test("create a task, see it appear, mark it complete, then delete it", async ({ page }) => {
   await page.goto("/");
 
-  // Wait for the initial fetch to finish (loading skeleton gone) before
-  // touching the form, so we're never racing the first page load.
   await expect(page.getByRole("list").or(page.getByText(/no tasks yet/i))).toBeVisible({
     timeout: 15_000,
   });
@@ -14,10 +12,22 @@ test("create a task, see it appear, mark it complete, then delete it", async ({ 
   // 1. Create a task
   await page.getByLabel("Task title").fill(uniqueTitle);
   await page.getByLabel("Priority").selectOption("high");
-  await page.getByRole("button", { name: "Add" }).click();
 
-  // 2. See it appear in the list — this round-trips to the real backend/DB,
-  // so give it real time instead of the default.
+  // Wait for the actual POST /api/tasks response, and fail with the real
+  // server message if it wasn't a success — this turns a vague "element
+  // never appeared" timeout into a precise "here's what the API said".
+  const [response] = await Promise.all([
+    page.waitForResponse((res) => res.url().includes("/api/tasks") && res.request().method() === "POST"),
+    page.getByRole("button", { name: "Add" }).click(),
+  ]);
+
+  const body = await response.json().catch(() => ({}));
+  expect(
+    response.ok(),
+    `POST /api/tasks returned ${response.status()}: ${body.message || JSON.stringify(body)}`
+  ).toBeTruthy();
+
+  // 2. See it appear in the list
   const taskRow = page.getByRole("listitem").filter({ hasText: uniqueTitle });
   await expect(taskRow).toBeVisible({ timeout: 15_000 });
   await expect(taskRow.getByText("high")).toBeVisible();
