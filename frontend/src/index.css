@@ -17,6 +17,23 @@
   --color-high: #FF5B4E;
 }
 
+/* Light theme override — same variable names, new values. Every
+   utility class (bg-bg, text-ink, border-line, ...) reads these as
+   CSS custom properties, so flipping data-theme on <html> re-themes
+   the whole app instantly without touching a single class name. */
+[data-theme="light"] {
+  --color-bg: #F7F7F9;
+  --color-panel: #FFFFFF;
+  --color-line: #E4E5EA;
+  --color-ink: #1A1D23;
+  --color-muted: #6B7280;
+  --color-coral: #E0432F;
+  --color-coral-ink: #FFFFFF;
+  --color-low: #16A34A;
+  --color-medium: #B45309;
+  --color-high: #E0432F;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -25,6 +42,7 @@ body {
   background-color: var(--color-bg);
   color: var(--color-ink);
   font-family: var(--font-body);
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -15,8 +15,8 @@ export default function IssueList({ issues, onDelete }) {
   return (
     <ul className="space-y-2">
       <AnimatePresence mode="popLayout">
-        {issues.map((issue) => (
-          <IssueCard key={issue._id} issue={issue} onDelete={onDelete} />
+        {issues.map((issue, index) => (
+          <IssueCard key={issue._id} issue={issue} index={index} onDelete={onDelete} />
         ))}
       </AnimatePresence>
     </ul>
