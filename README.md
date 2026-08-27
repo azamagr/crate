@@ -2,6 +2,9 @@
 
 A small issue tracker, built specifically to carry a full automated test suite — Week 5 · Task A (Testing Across the Stack). The app itself is intentionally simple (create, list, delete one resource) so the tests are the actual deliverable, not buried under unrelated features.
 
+**Live frontend:** https://azamagr.github.io/crate/ *(after deploy — see "Deploying" below)*
+**Backend API:** deployed separately (Vercel/Render/Railway) — see "Deploying" below
+
 This is a **three-part monorepo**:
 
 ```
@@ -92,3 +95,22 @@ npm install
 cp .env.example .env   # VITE_API_URL=http://localhost:5000
 npm run dev               # http://localhost:5173
 ```
+
+## Deploying the backend
+
+**Vercel** (files already included: `backend/api/index.js`, `backend/vercel.json`):
+1. Push this repo to GitHub.
+2. [vercel.com](https://vercel.com) → Add New → Project → import the repo.
+3. Root Directory: `backend`.
+4. Environment Variables: `MONGO_URI`.
+5. Deploy.
+
+**Render/Railway** also work: root directory `backend`, build command `npm install`, start command `npm start`, same environment variable.
+
+## Deploying the frontend
+
+1. Repo **Settings → Secrets and variables → Actions → Variables** → add `VITE_API_URL` set to your deployed backend URL.
+2. Repo **Settings → Pages → Source** → select **"GitHub Actions"**.
+3. Push to `main` — `.github/workflows/deploy.yml` builds `frontend/` with that API URL and publishes it.
+
+`frontend/vite.config.js` sets `base: '/crate/'` to match this repo's name — **keep the repo name all-lowercase**.
